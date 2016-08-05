@@ -1,0 +1,20 @@
+<div class="add">
+  <h5>Create A New Ticket</h5>
+
+  <form ng-submit="createTicket(ticket)">
+    <label>System</label>
+    <input ng-model="ticket.system">
+    <label>Created by</label>
+    <input ng-model="ticket.createdbyname">
+    <label>Create by Email</label>
+    <input ng-model="ticket.createdbyemail">
+    <label>Description</label>
+    <input ng-model="ticket.description">
+    <label>Comments</label>
+    <textarea ng-model="ticket.comments"></textarea>
+    <label>Submission Status</label>
+    <input ng-model="ticket.submissionsstatus">
+
+    <button secondary class="button radius">Submit</button>
+  </form>
+</div>

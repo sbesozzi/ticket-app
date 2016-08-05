@@ -1,0 +1,16 @@
+<div class="single">
+  <h5>{{ ticket.description }}</h5>
+
+  <p>{{ ticket.id }}</p>
+  <p>{{ ticket.system }}</p>
+  <p>{{ ticket.createdbyname }}</p>
+  <p>{{ ticket.createdbyemail }}</p>
+  <p>{{ ticket.submissionsstatus }}</p>
+  <p>{{ ticket.comments }}</p>
+
+  <hr>
+  
+  <a href="#/edit/{{ ticket.objectId }}">Edit</a>
+
+  <a href="#/" ng-click="deleteTicket(singleTicket)">Delete</a>
+</div>
