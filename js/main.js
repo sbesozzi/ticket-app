@@ -5,7 +5,6 @@ import config from './config';
 import ListController from './controllers/list.controller.js';
 import SingleController from './controllers/single.controller.js';
 import AddController from './controllers/add.controller.js';
-import EditController from './controllers/edit.controller.js';
 
 import TicketService from './services/ticket.service.js';
 
@@ -22,6 +21,5 @@ angular
   .controller('ListController', ListController)
   .controller('SingleController', SingleController)
   .controller('AddController', AddController)
-  .controller('EditController', EditController)
   .service('TicketService', TicketService)
 ;

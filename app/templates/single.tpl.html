@@ -1,16 +1,18 @@
 <div class="single">
-  <h5>{{ ticket.description }}</h5>
+  <h5>{{ ticket.Description }}</h5>
 
-  <p>{{ ticket.id }}</p>
-  <p>{{ ticket.system }}</p>
-  <p>{{ ticket.createdbyname }}</p>
-  <p>{{ ticket.createdbyemail }}</p>
-  <p>{{ ticket.submissionsstatus }}</p>
-  <p>{{ ticket.comments }}</p>
-
-  <hr>
+  <form ng-submit="updateTicket(ticket)">
+    <p>{{ ticket.Id }}</p>
+    <p>{{ ticket.System }}</p>
+    <p>{{ ticket.Createdbyname }}</p>
+    <label>Comments</label>
+    <textarea ng-model="ticket.Comments"></textarea>
+    <label>Submission Status</label>
+    <input ng-model="ticket.Submissionstatus">
+    <p>{{ ticket.Createdbyemail }}</p>
+    <button class="button">Update</button>
+    <button ng-click="deleteTicket(ticket)">Delete</button>
+  </form>
+    
   
-  <a href="#/edit/{{ ticket.objectId }}">Edit</a>
-
-  <a href="#/" ng-click="deleteTicket(singleTicket)">Delete</a>
 </div>

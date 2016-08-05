@@ -23,10 +23,6 @@ var config = function config($stateProvider, $urlRouterProvider) {
     url: '/single/:id',
     controller: 'SingleController',
     templateUrl: 'templates/single.tpl.html'
-  }).state('root.edit', {
-    url: '/edit/:id',
-    controller: 'EditController',
-    templateUrl: 'templates/edit.tpl.html'
   });
 };
 
@@ -45,9 +41,8 @@ var AddController = function AddController($scope, TicketService, $state, $state
 
   $scope.createTicket = function (obj) {
     TicketService.createTicket(obj).then(function (res) {
-      $scope.ticket = {};
-
       console.log(res);
+
       $state.go('root.list');
     });
   };
@@ -59,31 +54,6 @@ exports['default'] = AddController;
 module.exports = exports['default'];
 
 },{}],3:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-var EditController = function EditController($scope, $stateParams, TicketService, $state) {
-
-  TicketService.getTicket($stateParams.id).then(function (res) {
-    $scope.singleTicket = res.data;
-  });
-
-  $scope.updateTicket = function (obj) {
-    TicketService.updateTicket(obj).then(function (res) {
-      console.log(res);
-      $state.go('root.list');
-    });
-  };
-};
-
-EditController.$inject = ['$scope', '$stateParams', 'TicketService', '$state'];
-
-exports['default'] = EditController;
-module.exports = exports['default'];
-
-},{}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -103,7 +73,7 @@ ListController.$inject = ['$scope', 'TicketService'];
 exports['default'] = ListController;
 module.exports = exports['default'];
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -111,11 +81,23 @@ Object.defineProperty(exports, '__esModule', {
 });
 var SingleController = function SingleController($scope, $stateParams, TicketService, $state) {
 
-  TicketService.getTicket($stateParams.id).then(function (res) {
-    $scope.singleTicket = res.data;
+  var ticketId = $stateParams.id;
+
+  TicketService.getTicket(ticketId).then(function (res) {
+    console.log('single', res);
+
+    $scope.ticket = res.data;
   });
 
+  $scope.updateTicket = function (obj) {
+    TicketService.update(obj).then(function (res) {
+      $state.go('root.list');
+    });
+  };
+
   $scope.deleteTicket = function (obj) {
+    console.log('deleted', obj);
+
     TicketService['delete'](obj).then(function (res) {
       console.log(res);
       $state.go('root.list');
@@ -128,7 +110,7 @@ SingleController.$inject = ['$scope', '$stateParams', 'TicketService', '$state']
 exports['default'] = SingleController;
 module.exports = exports['default'];
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -155,10 +137,6 @@ var _controllersAddControllerJs = require('./controllers/add.controller.js');
 
 var _controllersAddControllerJs2 = _interopRequireDefault(_controllersAddControllerJs);
 
-var _controllersEditControllerJs = require('./controllers/edit.controller.js');
-
-var _controllersEditControllerJs2 = _interopRequireDefault(_controllersEditControllerJs);
-
 var _servicesTicketServiceJs = require('./services/ticket.service.js');
 
 var _servicesTicketServiceJs2 = _interopRequireDefault(_servicesTicketServiceJs);
@@ -168,9 +146,9 @@ _angular2['default'].module('app', ['ui.router']).constant('SERVER', {
   CONFIG: {
     headers: {}
   }
-}).config(_config2['default']).controller('ListController', _controllersListControllerJs2['default']).controller('SingleController', _controllersSingleControllerJs2['default']).controller('AddController', _controllersAddControllerJs2['default']).controller('EditController', _controllersEditControllerJs2['default']).service('TicketService', _servicesTicketServiceJs2['default']);
+}).config(_config2['default']).controller('ListController', _controllersListControllerJs2['default']).controller('SingleController', _controllersSingleControllerJs2['default']).controller('AddController', _controllersAddControllerJs2['default']).service('TicketService', _servicesTicketServiceJs2['default']);
 
-},{"./config":1,"./controllers/add.controller.js":2,"./controllers/edit.controller.js":3,"./controllers/list.controller.js":4,"./controllers/single.controller.js":5,"./services/ticket.service.js":7,"angular":10,"angular-ui-router":8}],7:[function(require,module,exports){
+},{"./config":1,"./controllers/add.controller.js":2,"./controllers/list.controller.js":3,"./controllers/single.controller.js":4,"./services/ticket.service.js":6,"angular":9,"angular-ui-router":7}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -178,58 +156,34 @@ Object.defineProperty(exports, '__esModule', {
 });
 var TicketService = function TicketService($state, $stateParams, $http, SERVER) {
 
-  console.log(SERVER);
-
   var url = SERVER.URL;
 
+  // Get list of tickets
   this.getTickets = function () {
-    // return $http({
-    //   url: url + '/Tickets',
-    //   headers: SERVER.CONFIG.headers,
-    //   method: 'GET',
-    //   cache: true
-    // });
-    return $http.get(url + '/Tickets', SERVER.CONFIG);
+    return $http.get(url + '/tickets', SERVER.CONFIG);
   };
 
-  this.getTicket = function (id) {
-    // return $http({
-    //   method: 'GET',
-    //   url: url + 'Tickets/id',
-    //   headers: SERVER.CONFIG.headers,
-    //   cache: true
-    // });
+  // Get a single ticket
 
-    return $http.get(url + '/Tickets/id', SERVER.CONFIG);
+  var ticketId = $stateParams.id;
+
+  this.getTicket = function (ticketId) {
+    return $http.get(url + '/tickets/' + ticketId, SERVER.CONFIG);
   };
 
-  var Ticket = function Ticket(obj) {
-    this.ticket = obj.ticket;
-  };
-
-  // let formData = new FormData();
-
-  // formData.append('system', obj.system);
-  // formData.append('createdbyname', obj.createdbyname);
-  // formData.append('createdbyemail', obj.createdbyemail);
-  // formData.append('description', obj.description);
-  // formData.append('comments', obj.comments);
-  // formData.append('submissionstatus', obj.submissionstatus);
-
-  // SERVER.CONFIG.headers['Content-Type'] = undefined;
-
+  // Create new ticket
   this.createTicket = function (obj) {
-    var t = new Ticket(obj);
-
-    return $http.post(url + '/Tickets', t, SERVER.CONFIG);
+    return $http.post(url + '/tickets', obj, SERVER.CONFIG);
   };
 
+  // Update single ticket
   this.update = function (obj) {
-    return $http.put(url + '/Tickets/id' + obj.objectId, obj, SERVER.CONFIG);
+    return $http.put(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
 
+  //  Delete single ticket
   this['delete'] = function (obj) {
-    return $http['delete'](url + '/Tickets/id' + obj.objectId, SERVER.CONFIG);
+    return $http['delete'](url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
 };
 
@@ -238,7 +192,7 @@ TicketService.$inject = ['$state', '$stateParams', '$http', 'SERVER'];
 exports['default'] = TicketService;
 module.exports = exports['default'];
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.1
@@ -4815,7 +4769,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.8
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36584,11 +36538,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":9}]},{},[6])
+},{"./angular":8}]},{},[5])
 
 
 //# sourceMappingURL=main.js.map

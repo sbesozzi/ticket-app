@@ -1,58 +1,34 @@
 let TicketService = function($state, $stateParams, $http, SERVER) {
-
-  console.log(SERVER);
   
   let url = SERVER.URL;
 
+  // Get list of tickets
   this.getTickets = function () {
-    // return $http({
-    //   url: url + '/Tickets',
-    //   headers: SERVER.CONFIG.headers,
-    //   method: 'GET',
-    //   cache: true
-    // });
-    return $http.get(url + '/Tickets', SERVER.CONFIG);
+    return $http.get(url + '/tickets', SERVER.CONFIG);
 
   };
 
-  this.getTicket = function (id) {
-    // return $http({
-    //   method: 'GET',
-    //   url: url + 'Tickets/id',
-    //   headers: SERVER.CONFIG.headers,
-    //   cache: true
-    // });
+  // Get a single ticket
 
-    return $http.get(url + '/Tickets/id', SERVER.CONFIG);
+  let ticketId = $stateParams.id;
+
+  this.getTicket = function (ticketId) {
+    return $http.get(url + '/tickets/' + ticketId, SERVER.CONFIG);
   };
 
-  let Ticket = function (obj) {
-    this.ticket = obj.ticket;
-  };
-
-  // let formData = new FormData();
-
-  // formData.append('system', obj.system);
-  // formData.append('createdbyname', obj.createdbyname);
-  // formData.append('createdbyemail', obj.createdbyemail);
-  // formData.append('description', obj.description);
-  // formData.append('comments', obj.comments);
-  // formData.append('submissionstatus', obj.submissionstatus);
-
-  // SERVER.CONFIG.headers['Content-Type'] = undefined;
-
+  // Create new ticket
   this.createTicket = function (obj) {
-    let t = new Ticket(obj);
-    
-    return $http.post(url + '/Tickets', t, SERVER.CONFIG);
+    return $http.post(url + '/tickets', obj, SERVER.CONFIG);
   };
 
+  // Update single ticket
   this.update = function (obj) {
-    return $http.put(url + '/Tickets/id' + obj.objectId, obj, SERVER.CONFIG);
+    return $http.put(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
 
+  //  Delete single ticket
   this.delete = function (obj) {
-    return $http.delete(url + '/Tickets/id' + obj.objectId, SERVER.CONFIG);
+    return $http.delete(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
 
 };
