@@ -6401,8 +6401,6 @@ nav {
   border-bottom: 1px solid #E1E3DF; }
   nav .top-bar-section .right {
     height: 25px; }
-    nav .top-bar-section .right li {
-      margin-left: 15px; }
   nav .top-bar-section li a:not(.button) {
     background: #FFFFFF !important;
     color: #84878B;
@@ -6425,7 +6423,6 @@ nav {
   margin: auto;
   padding: 0 20px 20px 20px; }
   .list h5 {
-    padding-bottom: 10px;
     color: #4d4d4d; }
   .list ul {
     list-style: none;
@@ -6436,7 +6433,7 @@ nav {
     border-radius: 4px;
     border: 1px solid #E1E3DF;
     margin-bottom: 15px;
-    height: 80px;
+    height: 102px;
     width: 300px; }
     .list li a {
       color: #AFAFAF; }

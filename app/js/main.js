@@ -41,11 +41,25 @@ var AddController = function AddController($scope, TicketService, $state, $state
 
   // Create a new ticket
   $scope.createTicket = function (obj) {
-    TicketService.createTicket(obj).then(function (res) {
-      console.log(res);
 
-      $state.go('root.list');
-    });
+    if (confirm('Your ticket has been created.')) {
+
+      TicketService.createTicket(obj).then(function (res) {
+        console.log(res);
+
+        // $state.go('root.list');
+      });
+
+      var emailObj = {
+        EmailTo: obj.CreatedByEmail,
+        Subject: 'Your ticket has been created.',
+        Body: obj.Comments
+      };
+
+      TicketService.emailNotif(emailObj).then(function (res) {
+        console.log("email sent", res);
+      });
+    }
   };
 
   $scope.backHome = function () {
@@ -101,14 +115,13 @@ var SingleController = function SingleController($scope, $stateParams, TicketSer
       TicketService.update(obj).then(function (res) {});
 
       // On update send notification email
-      var email = {
+      var emailObj = {
         EmailTo: obj.CreatedByEmail,
         Subject: 'Your ticket has been updated.',
         Body: obj.Comments
       };
-      console.log(email);
 
-      TicketService.emailNotif(email).then(function (res) {
+      TicketService.emailNotif(emailObj).then(function (res) {
         console.log("email sent", res);
       });
     }
@@ -170,6 +183,11 @@ _angular2['default'].module('app', ['ui.router']).constant('SERVER', {
   CONFIG: {
     headers: {}
   }
+}).constant('EMAIL', {
+  URL: 'https://helptickets01.azurewebsites.net/Email/SendEmail',
+  CONFIG: {
+    headers: {}
+  }
 }).config(_config2['default']).controller('ListController', _controllersListControllerJs2['default']).controller('SingleController', _controllersSingleControllerJs2['default']).controller('AddController', _controllersAddControllerJs2['default']).service('TicketService', _servicesTicketServiceJs2['default']);
 
 },{"./config":1,"./controllers/add.controller.js":2,"./controllers/list.controller.js":3,"./controllers/single.controller.js":4,"./services/ticket.service.js":6,"angular":9,"angular-ui-router":7}],6:[function(require,module,exports){
@@ -178,9 +196,10 @@ _angular2['default'].module('app', ['ui.router']).constant('SERVER', {
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var TicketService = function TicketService($state, $stateParams, $http, SERVER) {
+var TicketService = function TicketService($state, $stateParams, $http, SERVER, EMAIL) {
 
-  var url = SERVER.URL;
+  var url = SERVER.URL,
+      emailUrl = EMAIL.URL;
 
   // Get list of tickets
   this.getTickets = function () {
@@ -188,7 +207,6 @@ var TicketService = function TicketService($state, $stateParams, $http, SERVER) 
   };
 
   // Get a single ticket
-
   var ticketId = $stateParams.id;
 
   this.getTicket = function (ticketId) {
@@ -205,16 +223,9 @@ var TicketService = function TicketService($state, $stateParams, $http, SERVER) 
     return $http.put(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
 
-  // On update send email
-  this.emailNotif = function (email) {
-    console.log(email);
-
-    return $http({
-      url: 'https://helptickets01.azurewebsites.net/Email/SendEmail',
-      headers: '',
-      method: 'POST',
-      cache: true
-    });
+  // On update send email notif
+  this.emailNotif = function (emailObj) {
+    return $http.post(url + '/email?EmailTo=' + emailObj.EmailTo + '&Subject=' + emailObj.Subject + '&Body=' + emailObj.Body, emailObj, SERVER.CONFIG);
   };
 
   //  Delete single ticket
@@ -223,7 +234,7 @@ var TicketService = function TicketService($state, $stateParams, $http, SERVER) 
   };
 };
 
-TicketService.$inject = ['$state', '$stateParams', '$http', 'SERVER'];
+TicketService.$inject = ['$state', '$stateParams', '$http', 'SERVER', 'EMAIL'];
 
 exports['default'] = TicketService;
 module.exports = exports['default'];

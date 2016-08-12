@@ -23,10 +23,6 @@ nav {
 
   .top-bar-section .right {
     height: 25px;
-
-    li {
-      margin-left: 15px;
-     } 
   }
 
   .top-bar-section li a:not(.button) {
@@ -63,7 +59,6 @@ nav {
   padding: 0 20px 20px 20px;
 
   h5 {
-    padding-bottom: 10px;
     color: #4d4d4d;
   }
 
@@ -78,7 +73,7 @@ nav {
     border-radius: 4px;
     border: 1px solid #E1E3DF;
     margin-bottom: 15px;
-    height: 80px;
+    height: 102px;
     width: 300px;
 
     a {

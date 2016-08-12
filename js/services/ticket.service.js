@@ -1,6 +1,7 @@
-let TicketService = function($state, $stateParams, $http, SERVER) {
+let TicketService = function($state, $stateParams, $http, SERVER, EMAIL) {
   
-  let url = SERVER.URL;
+  let url = SERVER.URL,
+    emailUrl = EMAIL.URL;
 
   // Get list of tickets
   this.getTickets = function () {
@@ -9,7 +10,6 @@ let TicketService = function($state, $stateParams, $http, SERVER) {
   };
 
   // Get a single ticket
-
   let ticketId = $stateParams.id;
 
   this.getTicket = function (ticketId) {
@@ -26,16 +26,9 @@ let TicketService = function($state, $stateParams, $http, SERVER) {
     return $http.put(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
 
-  // On update send email
-  this.emailNotif = function (email) {
-    console.log(email);
-
-    return $http({
-      url: 'https://helptickets01.azurewebsites.net/Email/SendEmail',
-      headers: '',
-      method: 'POST',
-      cache: true
-    });
+  // On update send email notif
+  this.emailNotif = function (emailObj) {
+    return $http.post(url + '/email?EmailTo=' + emailObj.EmailTo + '&Subject=' + emailObj.Subject + '&Body=' + emailObj.Body, emailObj, SERVER.CONFIG);
   };
 
   //  Delete single ticket
@@ -46,6 +39,6 @@ let TicketService = function($state, $stateParams, $http, SERVER) {
 };
 
 
-TicketService.$inject = ['$state', '$stateParams', '$http', 'SERVER'];
+TicketService.$inject = ['$state', '$stateParams', '$http', 'SERVER', 'EMAIL'];
 
 export default TicketService;

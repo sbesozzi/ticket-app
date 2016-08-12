@@ -17,6 +17,12 @@ angular
       headers: {}
     }
   })
+  .constant('EMAIL', {
+    URL: 'https://helptickets01.azurewebsites.net/Email/SendEmail',
+    CONFIG: {
+      headers: {}
+    }
+  })
   .config(config)
   .controller('ListController', ListController)
   .controller('SingleController', SingleController)

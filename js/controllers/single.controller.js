@@ -15,14 +15,13 @@ let SingleController = function($scope, $stateParams, TicketService, $state) {
       });
 
       // On update send notification email
-      let email = {
+      let emailObj = {
         EmailTo: obj.CreatedByEmail,
         Subject: 'Your ticket has been updated.',
-        Body: obj.Comments
+        Body: obj.Comments,
       };
-      console.log(email);
 
-      TicketService.emailNotif(email).then( (res) => {
+      TicketService.emailNotif(emailObj).then( (res) => {
         console.log("email sent", res);
 
       });
@@ -35,10 +34,8 @@ let SingleController = function($scope, $stateParams, TicketService, $state) {
     if (confirm('Are you sure you want to delete this ticket?')) {
       TicketService.delete(obj).then( (res) => {
         $state.go('root.list');
-
       });
     }
-    
   };
 
   // Go back home
