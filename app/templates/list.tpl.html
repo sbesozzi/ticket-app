@@ -1,9 +1,11 @@
 <div class="list">
   <h5>Tickets</h5>
-
   <ul>
-    <li ng-repeat="ticket in tickets">
-      <a href="#/single/{{ ticket.Id }}">{{ ticket.Description }}</a>
+    <li ng-repeat="ticket in tickets" >
+      <a href="#/single/{{ ticket.Id }}">
+        <p>Ticket ID: {{ ticket.Id }}</p>
+        <p>Description: {{ ticket.Description }}</p>
+      </a>
     </li>
   </ul>
 </div>

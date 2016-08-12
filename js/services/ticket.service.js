@@ -26,6 +26,18 @@ let TicketService = function($state, $stateParams, $http, SERVER) {
     return $http.put(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
 
+  // On update send email
+  this.emailNotif = function (email) {
+    console.log(email);
+
+    return $http({
+      url: 'https://helptickets01.azurewebsites.net/Email/SendEmail',
+      headers: '',
+      method: 'POST',
+      cache: true
+    });
+  };
+
   //  Delete single ticket
   this.delete = function (obj) {
     return $http.delete(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);

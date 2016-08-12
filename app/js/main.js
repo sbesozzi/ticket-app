@@ -39,12 +39,18 @@ Object.defineProperty(exports, '__esModule', {
 });
 var AddController = function AddController($scope, TicketService, $state, $stateParams) {
 
+  // Create a new ticket
   $scope.createTicket = function (obj) {
     TicketService.createTicket(obj).then(function (res) {
       console.log(res);
 
       $state.go('root.list');
     });
+  };
+
+  $scope.backHome = function () {
+
+    $state.go('root.list');
   };
 };
 
@@ -61,6 +67,7 @@ Object.defineProperty(exports, '__esModule', {
 });
 var ListController = function ListController($scope, TicketService) {
 
+  // Display all tickets
   TicketService.getTickets().then(function (res) {
     console.log(res);
 
@@ -83,25 +90,42 @@ var SingleController = function SingleController($scope, $stateParams, TicketSer
 
   var ticketId = $stateParams.id;
 
+  // Get single ticket by id
   TicketService.getTicket(ticketId).then(function (res) {
-    console.log('single', res);
-
     $scope.ticket = res.data;
   });
 
+  // Update single ticket
   $scope.updateTicket = function (obj) {
-    TicketService.update(obj).then(function (res) {
-      $state.go('root.list');
-    });
+    if (confirm('Are you sure you want to update this ticket?')) {
+      TicketService.update(obj).then(function (res) {});
+
+      // On update send notification email
+      var email = {
+        EmailTo: obj.CreatedByEmail,
+        Subject: 'Your ticket has been updated.',
+        Body: obj.Comments
+      };
+      console.log(email);
+
+      TicketService.emailNotif(email).then(function (res) {
+        console.log("email sent", res);
+      });
+    }
   };
 
+  // Delete single ticket
   $scope.deleteTicket = function (obj) {
-    console.log('deleted', obj);
+    if (confirm('Are you sure you want to delete this ticket?')) {
+      TicketService['delete'](obj).then(function (res) {
+        $state.go('root.list');
+      });
+    }
+  };
 
-    TicketService['delete'](obj).then(function (res) {
-      console.log(res);
-      $state.go('root.list');
-    });
+  // Go back home
+  $scope.backHome = function () {
+    $state.go('root.list');
   };
 };
 
@@ -179,6 +203,18 @@ var TicketService = function TicketService($state, $stateParams, $http, SERVER) 
   // Update single ticket
   this.update = function (obj) {
     return $http.put(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
+  };
+
+  // On update send email
+  this.emailNotif = function (email) {
+    console.log(email);
+
+    return $http({
+      url: 'https://helptickets01.azurewebsites.net/Email/SendEmail',
+      headers: '',
+      method: 'POST',
+      cache: true
+    });
   };
 
   //  Delete single ticket

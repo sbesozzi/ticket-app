@@ -1,20 +1,13 @@
-<div class="add">
+<div class="new">
   <h5>Create A New Ticket</h5>
-
   <form ng-submit="createTicket(ticket)">
-    <label>System</label>
-    <input ng-model="ticket.system">
-    <label>Created by</label>
-    <input ng-model="ticket.createdbyname">
-    <label>Create by Email</label>
-    <input ng-model="ticket.createdbyemail">
-    <label>Description</label>
-    <input ng-model="ticket.description">
-    <label>Comments</label>
-    <textarea ng-model="ticket.comments"></textarea>
-    <label>Submission Status</label>
-    <input ng-model="ticket.submissionsstatus">
-
-    <button secondary class="button radius">Submit</button>
+    <input ng-model="ticket.system" placeholder="System">
+    <input ng-model="ticket.createdbyname" placeholder="Created By">
+    <input ng-model="ticket.createdbyemail" placeholder="Email">
+    <input ng-model="ticket.description" placeholder="Description">
+    <textarea ng-model="ticket.comments" placeholder="Comments"></textarea>
+    <input ng-model="ticket.submissionsstatus" placeholder="Status">
+    <button secondary class="radius">Submit</button>
+    <button ng-click="backHome()">Back</button>
   </form>
 </div>

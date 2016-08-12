@@ -6388,7 +6388,7 @@ th.hide-for-touch {
     display: table-cell !important; } }
 
 body {
-  background: #FAFAFA; }
+  background: #F1F1F1; }
 
 .top-bar {
   background: #FFFFFF;
@@ -6409,34 +6409,41 @@ nav {
     font-size: 0.90rem; }
   nav .top-bar-section li a:not(.button):hover {
     background: #FFFFFF !important;
-    color: #84878B; }
+    color: #757575; }
   nav .top-bar-section ul li.active > a {
     background: #FFFFFF !important; }
   nav .top-bar-section ul li.active > a:hover {
-    background: #FFFFFF !important; }
+    background: #757575 !important; }
 
 .container {
   width: 100%;
   margin-top: 30px; }
 
 .list {
-  width: 400px;
+  width: 340px;
   height: 540px;
   margin: auto;
-  padding: 20px;
-  background-color: #FFFFFF;
-  border-radius: 4px;
-  border: 1px solid #E1E3DF; }
+  padding: 0 20px 20px 20px; }
   .list h5 {
     padding-bottom: 10px;
-    color: #4B4F5A; }
+    color: #4d4d4d; }
   .list ul {
     list-style: none;
     margin: 0; }
   .list li {
-    padding-bottom: 10px; }
+    padding: 15px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    border: 1px solid #E1E3DF;
+    margin-bottom: 15px;
+    height: 80px;
+    width: 300px; }
     .list li a {
       color: #AFAFAF; }
+      .list li a p {
+        margin-bottom: 0;
+        font-size: .9em;
+        color: #4d4d4d; }
 
 .single {
   width: 400px;
@@ -6445,45 +6452,68 @@ nav {
   padding: 20px;
   background-color: #FFFFFF;
   border-radius: 4px;
-  border: 1px solid #E1E3DF; }
+  border: 1px solid #E1E3DF;
+  font-size: 1.1em; }
   .single h5 {
-    color: #4B4F5A;
+    color: #4d4d4d;
     padding-bottom: 10px; }
-  .single p {
-    color: #AFAFAF;
-    margin: 0; }
+  .single div {
+    margin-bottom: 5px; }
+    .single div label {
+      display: inline-block;
+      font-size: .8em; }
+    .single div p {
+      color: #AFAFAF;
+      margin: 0;
+      font-size: .8em;
+      display: inline-block; }
+  .single form label {
+    display: inline-block;
+    font-size: .8em; }
   .single form input {
     box-shadow: none;
     border-radius: 3px;
-    background: #FFFFFF; }
+    background: #FFFFFF;
+    color: #AFAFAF;
+    font-size: .8em; }
   .single form textarea {
     box-shadow: none;
     border-radius: 3px;
-    background: #FFFFFF; }
+    background: #FFFFFF;
+    color: #AFAFAF;
+    font-size: .8em; }
   .single form button {
     padding: 10px 12px 11px 12px;
     border-radius: 3px;
     background-color: #D4D4D4;
-    font-size: 16px; }
+    font-size: 16px;
+    width: 78px;
+    margin-right: 5px; }
 
-.add {
-  width: 400px;
+.new {
+  width: 300px;
   height: 500px;
   margin: auto; }
-  .add h5 {
-    color: #4B4F5A; }
-  .add form input {
+  .new h5 {
+    color: #4d4d4d; }
+  .new form input {
     box-shadow: none;
     border-radius: 3px;
-    background: #FFFFFF; }
-  .add form textarea {
+    background: #FFFFFF;
+    font-size: .9em;
+    margin-bottom: 10px; }
+  .new form textarea {
     box-shadow: none;
     border-radius: 3px;
-    background: #FFFFFF; }
-  .add form button {
-    padding: 10px 28px 11px 28px;
+    background: #FFFFFF;
+    font-size: .9em;
+    margin-bottom: 10px; }
+  .new form button {
+    padding: 10px 12px 11px 12px;
     border-radius: 3px;
     background-color: #D4D4D4;
-    font-size: 16px; }
+    font-size: 16px;
+    width: 78px;
+    margin-right: 5px; }
 
 /*# sourceMappingURL=main.css.map */

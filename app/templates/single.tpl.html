@@ -1,18 +1,33 @@
 <div class="single">
   <h5>{{ ticket.Description }}</h5>
-
   <form ng-submit="updateTicket(ticket)">
-    <p>{{ ticket.Id }}</p>
-    <p>{{ ticket.System }}</p>
-    <p>{{ ticket.Createdbyname }}</p>
+    <div>
+      <label>Ticket ID: </label>
+      <p>{{ ticket.Id }}</p>
+    </div>
+    <div>
+      <label>System: </label>
+      <p>{{ ticket.System }}</p>
+    </div>
+    <div>
+      <label>Created by: </label>
+      <p>{{ ticket.CreatedByName }}</p>
+    </div>
+    <div>
+      <label>Email: </label>
+      <p>{{ ticket.CreatedByEmail }}</p>
+    </div>
+    <div>
+      <label>Description: </label>
+      <p>{{ ticket.Description }}</p>
+    </div>
     <label>Comments</label>
     <textarea ng-model="ticket.Comments"></textarea>
     <label>Submission Status</label>
-    <input ng-model="ticket.Submissionstatus">
+    <input ng-model="ticket.SubmissionStatus">
     <p>{{ ticket.Createdbyemail }}</p>
-    <button class="button">Update</button>
+    <button>Update</button>
     <button ng-click="deleteTicket(ticket)">Delete</button>
+    <button ng-click="backHome()">Back</button>
   </form>
-    
-  
 </div>
