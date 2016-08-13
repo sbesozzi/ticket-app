@@ -8,17 +8,10 @@ import AddController from './controllers/add.controller.js';
 
 import TicketService from './services/ticket.service.js';
 
-
 angular
   .module('app', ['ui.router'])
   .constant('SERVER', {
     URL: 'https://helptickets01.azurewebsites.net/api',
-    CONFIG: {
-      headers: {}
-    }
-  })
-  .constant('EMAIL', {
-    URL: 'https://helptickets01.azurewebsites.net/Email/SendEmail',
     CONFIG: {
       headers: {}
     }

@@ -4,34 +4,26 @@ let AddController = function($scope, TicketService, $state, $stateParams) {
   $scope.createTicket = (obj) => {
 
     if (confirm('Your ticket has been created.')) {
-
       TicketService.createTicket(obj).then( (res) => {
-        console.log(res);
-
-        // $state.go('root.list');
 
       });
 
+      // On update send notification email
       let emailObj = {
-        EmailTo: obj.CreatedByEmail,
+        EmailTo: obj.createdbyemail,
         Subject: 'Your ticket has been created.',
-        Body: obj.Comments,
+        Body: 'Comments: ' + obj.comments + ', Submission Status: ' + obj.submissionstatus
       };
 
       TicketService.emailNotif(emailObj).then( (res) => {
-        console.log("email sent", res);
-
+        $state.go('root.list');
       });
     }
-    
   };
 
   $scope.backHome = function () {
-    
     $state.go('root.list');
-
   };
-
 };
 
 AddController.$inject = ['$scope', 'TicketService', '$state', '$stateParams'];

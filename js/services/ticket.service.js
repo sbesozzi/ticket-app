@@ -1,12 +1,10 @@
-let TicketService = function($state, $stateParams, $http, SERVER, EMAIL) {
+let TicketService = function($state, $stateParams, $http, SERVER) {
   
-  let url = SERVER.URL,
-    emailUrl = EMAIL.URL;
+  let url = SERVER.URL;
 
   // Get list of tickets
   this.getTickets = function () {
     return $http.get(url + '/tickets', SERVER.CONFIG);
-
   };
 
   // Get a single ticket
@@ -35,10 +33,8 @@ let TicketService = function($state, $stateParams, $http, SERVER, EMAIL) {
   this.delete = function (obj) {
     return $http.delete(url + '/tickets/' + obj.Id, obj, SERVER.CONFIG);
   };
-
 };
 
-
-TicketService.$inject = ['$state', '$stateParams', '$http', 'SERVER', 'EMAIL'];
+TicketService.$inject = ['$state', '$stateParams', '$http', 'SERVER'];
 
 export default TicketService;

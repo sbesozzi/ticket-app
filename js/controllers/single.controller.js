@@ -9,7 +9,7 @@ let SingleController = function($scope, $stateParams, TicketService, $state) {
 
   // Update single ticket
   $scope.updateTicket = function (obj) {
-    if (confirm('Are you sure you want to update this ticket?')) {
+    if (confirm('Are you sure you want to update this ticket?')) { 
       TicketService.update(obj).then( (res) => {
 
       });
@@ -17,16 +17,14 @@ let SingleController = function($scope, $stateParams, TicketService, $state) {
       // On update send notification email
       let emailObj = {
         EmailTo: obj.CreatedByEmail,
-        Subject: 'Your ticket has been updated.',
-        Body: obj.Comments,
+        Subject: 'Your ticket with ID ' + obj.Id + ' has been updated.',
+        Body: 'Comments: ' + obj.Comments + ', Submission Status: ' + obj.SubmissionStatus
       };
 
       TicketService.emailNotif(emailObj).then( (res) => {
-        console.log("email sent", res);
 
-      });
-    }
-    
+      }); 
+    } 
   };
 
   // Delete single ticket
