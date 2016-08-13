@@ -6426,7 +6426,8 @@ nav {
     color: #4d4d4d; }
   .list ul {
     list-style: none;
-    margin: 0; }
+    margin: 0;
+    margin-bottom: 50px; }
   .list li {
     padding: 15px;
     background-color: #FFFFFF;
