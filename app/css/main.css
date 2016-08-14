@@ -6397,6 +6397,12 @@ body {
     color: #84878B;
     font-size: 1.1rem; }
 
+.toggle-topbar.menu-icon a {
+  color: #84878B !important; }
+
+.toggle-topbar.menu-icon span::after {
+  color: #757575 !important; }
+
 nav {
   border-bottom: 1px solid #E1E3DF; }
   nav .top-bar-section .right {

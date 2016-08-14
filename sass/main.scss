@@ -18,6 +18,18 @@ body {
   }
 }
 
+.toggle-topbar.menu-icon {
+
+  a {
+  color: #84878B !important;
+  }
+
+  span::after {
+    color: #757575 !important;
+  }
+  
+}
+
 nav {
   border-bottom: 1px solid #E1E3DF;
 
@@ -43,6 +55,7 @@ nav {
   .top-bar-section ul li.active > a:hover {
       background: #757575 !important;   
   }
+
 }
 
 .container {
