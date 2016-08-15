@@ -6392,7 +6392,8 @@ body {
 
 .top-bar {
   background: #FFFFFF;
-  height: 3rem; }
+  height: 3rem;
+  overflow: visible !important; }
   .top-bar .title-area .name a {
     color: #84878B;
     font-size: 1.1rem; }
