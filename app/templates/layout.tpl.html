@@ -1,12 +1,12 @@
-<nav class="top-bar" data-topbar role="navigation">
+<nav class="top-bar" data-topbar role="navigation" ng-click="showDiv = !showDiv">
   <ul class="title-area">
     <li class="name">
       <h1><a href="#/">Ticketing App</a></h1>
     </li>
-    <li class="toggle-topbar menu-icon" ng-mouseover="hoverEdit = true"><a href="#"><span>Menu</span></a></li>
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   </ul>
-  <section class="top-bar-section" ng-mouseleave="hoverEdit = false">
-    <ul class="right" ng-show="hoverEdit">
+  <section class="top-bar-section" ng-mouseleave="hoverEdit = false" ng-mouseover="hoverEdit = true">
+    <ul class="right" ng-show="showDiv" >
       <li><a href="#/">Tickets</a></li>
       <li><a href="#/add">New</a></li>
     </ul>
